@@ -1,4 +1,4 @@
-import './style.css'
+
 
 let dps = []; // dataPoints
 let chart = new CanvasJS.Chart("chartContainer", {

@@ -1,4 +1,4 @@
-import './style.css'
+
 // can show any algorithm if I store the values at a point and then replay them.
 // Only problem is that website might take a bit to load for some slower algorithms for example O(n) or around there. Note the time would still be minimal though. Storing these values in a list converting them into dps, only mishap is figure out how to keep colors.
 
