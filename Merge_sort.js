@@ -1,4 +1,8 @@
 
+// can show any algorithm if I store the values at a point and then replay them.
+// Only problem is that website might take a bit to load for some slower algorithms for example O(n) or around there. Note the time would still be minimal though. Storing these values in a list converting them into dps, only mishap is figure out how to keep colors.
+
+
 console.log('dawadawa')
 // const button = document.getElementById('btn');
 // button.addEventListener('click', (e) => {
@@ -95,6 +99,10 @@ var updateChart = function (values, colors ) {
         dps[j]["y"] = values[j];
     }
 };
+// color[k] = 'blue';
+// colorList.push([...color]);
+// points.push([...array]);
+// color = Array(100).fill(1).map((_, index)=> index);
 function merge(arr, left, mid, right) {
     const n1 = mid - left + 1;
     const n2 = right - mid;
@@ -167,10 +175,16 @@ function mergeSort(arr, left, right) {
 
 makingGraph(yValues);
 mergeSort(yValues,0, yValues.length - 1);
+console.log('points');
+//console.log(points);
+// for (let i = 0; i < points.length; i++){
+//     console.log(points[i]);
+// }
 
 
 let animation = function (){
     updateChart(points[counter], colorList[counter]);
+    //console.log(points[1]);
     counter++;
     chart.render();
 }

@@ -7,7 +7,7 @@ let chart = new CanvasJS.Chart("chartContainer", {
     theme : 'light',
 
     title :{
-        text: "Dynamic Data"
+        text: "Bubble Sort"
     },
     data: [{
         color: ' #ff512b ',
