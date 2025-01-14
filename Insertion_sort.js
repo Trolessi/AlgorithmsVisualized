@@ -1,5 +1,14 @@
 
-
+const button = document.getElementById('btn');
+button.addEventListener('click', (e) => {
+    if (!paused){
+        paused = true;
+        button.innerText = 'Play';
+    } else {
+        paused = false;
+        button.innerText = 'Stop';
+    }
+});
 let dps = []; // dataPoints
 let chart = new CanvasJS.Chart("chartContainer", {
     theme : 'light',
@@ -36,6 +45,7 @@ let n = yValues.length
 let i = 1;
 let j = i - 1;
 let key = yValues[i];
+let paused = false;
 
 
 const makingGraph = function (list){
@@ -59,7 +69,8 @@ const updateChart = function () {
 };
 
 const InsertionSort = function () {
-    let gone = false;
+    if (!paused){
+        let gone = false;
     console.log(i)
     chart.render();
     for (let l = 0; l < dps.length; l++) {
@@ -88,14 +99,8 @@ const InsertionSort = function () {
         i = 1;
         console.log('done')
     }
-
-
-
-
-
-
-
-
+    }
+    
 }
 
 makingGraph(100);

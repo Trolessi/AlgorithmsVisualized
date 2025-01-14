@@ -2,6 +2,16 @@
 
 
 console.log('dawadawa')
+const button = document.getElementById('btn');
+button.addEventListener('click', (e) => {
+    if (!paused){
+        paused = true;
+        button.innerText = 'Play';
+    } else {
+        paused = false;
+        button.innerText = 'Stop';
+    }
+});
 let dps = []; // dataPoints
 let chart = new CanvasJS.Chart("chartContainer", {
     theme : 'light',
@@ -37,7 +47,8 @@ let yValues = disorganizeList(Array(100).fill(1).map((_, index)=> index));
 const updateInterval = 0;
 let n = yValues.length
 let counter = 0;
-let dataLength = 20; // number of dataPoints visible at any point
+let dataLength = 20; // number of dataPoints visible at any point 
+let paused = false;
 
 
 
@@ -62,39 +73,37 @@ const updateChart = function () {
 };
 
 const bubbleSort = function () {
-    let i, j, temp;
-    let swapped;
-    let length = n - 1;
-
-    swapped = false;
-
-    for (let l = 0; l < dps.length; l++) {
-            dps[l]["color"] = ""
-
+    if (!paused){
+        let i, j, temp;
+        let swapped;
+        let length = n - 1;
+    
+        swapped = false;
+    
+        for (let l = 0; l < dps.length; l++) {
+                dps[l]["color"] = ""
+    
+        }
+        dps[counter+1]["color"] = "blue"
+        if (dps[counter]["y"] > dps[counter + 1]["y"]) {
+    
+            temp = dps[counter]["y"];
+            dps[counter]["y"] = dps[counter + 1]["y"];
+            dps[counter + 1]["y"] = temp;
+            swapped = true;
+        }
+        chart.render();
+    
+        if (counter < n - 1){
+            counter++;
+    
+        } else {
+            console.log('done?');
+            n = n - 1;
+            counter = 0;
+    
+        }
     }
-    dps[counter+1]["color"] = "blue"
-    if (dps[counter]["y"] > dps[counter + 1]["y"]) {
-        // Swap arr[j] and arr[j+1]
-
-        temp = dps[counter]["y"];
-        dps[counter]["y"] = dps[counter + 1]["y"];
-        dps[counter + 1]["y"] = temp;
-        swapped = true;
-    }
-    chart.render();
-    console.log(n);
-
-        // IF no two elements were
-        // swapped by inner loop, then break
-    if (counter < n - 1){
-        counter++;
-
-    } else {
-        n = n - 1;
-        counter = 0;
-
-    }
-
 }
 
 makingGraph(100);

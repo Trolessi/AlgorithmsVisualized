@@ -1,7 +1,17 @@
 
 
 
-console.log('dawadawa')
+console.log('dawadawa');
+const button = document.getElementById('btn');
+button.addEventListener('click', (e) => {
+    if (!paused){
+        paused = true;
+        button.innerText = 'Play';
+    } else {
+        paused = false;
+        button.innerText = 'Stop';
+    }
+});
 let dps = []; // dataPoints
 let chart = new CanvasJS.Chart("chartContainer", {
     theme : 'light',
@@ -36,6 +46,7 @@ let xValues = Array(101).fill(0).map((_, index)=> index);
 let yValues = disorganizeList(Array(100).fill(1).map((_, index)=> index));
 const updateInterval = 200;
 let i = 0;
+let paused  = false;
 
 
 
@@ -60,28 +71,29 @@ const updateChart = function () {
 };
 
 const selectionSort = function () {
-    chart.render();
-    let min_idx = i;
-
-    for (let j = i + 1; j < dps.length; j++) {
-        if (dps[j]['y'] < dps[min_idx]['y']) {
-
-            min_idx = j;
+    if (!paused){
+        chart.render();
+        let min_idx = i;
+    
+        for (let j = i + 1; j < dps.length; j++) {
+            if (dps[j]['y'] < dps[min_idx]['y']) {
+    
+                min_idx = j;
+            }
+        }
+        for (let l = 0; l < dps.length; l++) {
+            dps[l]["color"] = ""
+    
+        }
+        dps[min_idx]["color"] = "blue"
+        let temp = dps[i]['y'];``
+        dps[i]['y'] = dps[min_idx]['y'];
+        dps[min_idx]['y'] = temp;
+        dps[min_idx]["color"] = "blue"
+        if (i < dps.length - 1){
+            i++;
         }
     }
-    for (let l = 0; l < dps.length; l++) {
-        dps[l]["color"] = ""
-
-    }
-    dps[min_idx]["color"] = "blue"
-    let temp = dps[i]['y'];``
-    dps[i]['y'] = dps[min_idx]['y'];
-    dps[min_idx]['y'] = temp;
-    dps[min_idx]["color"] = "blue"
-    if (i < dps.length - 1){
-        i++;
-    }
-
 }
 
 makingGraph(100);

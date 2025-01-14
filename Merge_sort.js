@@ -4,16 +4,16 @@
 
 
 console.log('dawadawa')
-// const button = document.getElementById('btn');
-// button.addEventListener('click', (e) => {
-//     if (!paused){
-//         paused = true;
-//         button.innerText = 'Play';
-//     } else {
-//         paused = false;
-//         button.innerText = 'Stop';
-//     }
-// });
+const button = document.getElementById('btn');
+button.addEventListener('click', (e) => {
+    if (!paused){
+        paused = true;
+        button.innerText = 'Play';
+    } else {
+        paused = false;
+        button.innerText = 'Stop';
+    }
+});
 var dps = []; // dataPoints
 var chart = new CanvasJS.Chart("chartContainer", {
     theme : 'light',
@@ -59,6 +59,7 @@ let colorList = [];
 let points = [];
 var dataLength = 20; // number of dataPoints visible at any point
 let paused = false;
+let k = 0;
 
 var makingGraph = function (list){
     // dps = []
@@ -183,10 +184,18 @@ console.log('points');
 
 
 let animation = function (){
-    updateChart(points[counter], colorList[counter]);
-    //console.log(points[1]);
-    counter++;
+    if (!paused && counter < points.length){
+        updateChart(points[counter], colorList[counter]);
+        counter++;
+        
+    } else if (!paused && counter >= points.length){
+        dps[k]['color'] = '#228B22';
+        dps[k+1]['color'] = 'blue';
+        k++;
+        console.log(k);
+    }
     chart.render();
+    
 }
 
 

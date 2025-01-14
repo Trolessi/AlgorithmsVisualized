@@ -1,15 +1,15 @@
 
 console.log('dawadawa')
-// const button = document.getElementById('btn');
-// button.addEventListener('click', (e) => {
-//     if (!paused){
-//         paused = true;
-//         button.innerText = 'Play';
-//     } else {
-//         paused = false;
-//         button.innerText = 'Stop';
-//     }
-// });
+const button = document.getElementById('btn');
+button.addEventListener('click', (e) => {
+    if (!paused){
+        paused = true;
+        button.innerText = 'Play';
+    } else {
+        paused = false;
+        button.innerText = 'Stop';
+    }
+});
 let dps = []; // dataPoints
 let chart = new CanvasJS.Chart("chartContainer", {
     theme : 'light',
@@ -19,7 +19,7 @@ let chart = new CanvasJS.Chart("chartContainer", {
         text: "Quick Sort"
     },
     data: [{
-        color: '     #ff512b ',
+        color: 'red',
         type: "column",
         dataPoints: dps
     }]
@@ -53,6 +53,7 @@ let color = Array(100).fill(1).map((_, index)=> index);
 let colorList = [];
 let points = [];
 let paused = false;
+let k = 0;
 
 function makingGraph (list){
     // dps = []
@@ -68,8 +69,11 @@ function makingGraph (list){
     chart.render();
 }
 
-
-
+function EndAnimation(){
+    for (let k = 0; k < dps.length; k++){
+        dps[k]['color'] = 'green';
+    }
+}
 
 function updateChart(values, colors ) {
     for (var j = 0; j < values.length; j++) {
@@ -133,8 +137,16 @@ quickSort(yValues, 0, yValues.length - 1);
 
 
 let animation = function (){
-    updateChart(points[counter], colorList[counter]);
-    counter++;
+    if (!paused && counter < points.length){
+        updateChart(points[counter], colorList[counter]);
+        counter++;
+        
+    } else if (!paused && counter >= points.length){
+        dps[k]['color'] = '#228B22';
+        dps[k+1]['color'] = 'blue';
+        k++;
+        console.log(k);
+    }
     chart.render();
 }
 
